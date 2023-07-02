@@ -4,7 +4,6 @@ const lResults = document.querySelector(".lastResults");
 const answer = document.querySelector(".answer");
 const condition = document.querySelector(".hlValue");
 let resetButton = document.querySelector("#reset")
-const resPar = document.querySelectorAll(".resultPara")
 
 let guessCount = 1;
 
@@ -18,13 +17,16 @@ function checkAnswer() {
         lResults.textContent = "Previous guesses: ";
     }
 
-    lResults.textContent += `${playerGuess} `;
-
     conditionCheck(playerGuess, randomNumber);
 
+    lResults.textContent += `${playerGuess} `;
+
+
     guessCount++;
-    playerGuess = "";
+    playerInput.value = "";
 }
+
+submit.addEventListener("click", checkAnswer);
 
 function conditionCheck(guess, rdn) {
     if (guess === rdn) {
@@ -68,9 +70,10 @@ function startOver() {
 function resetGame() {
     guessCount = 1;
     resetButton.parentNode.removeChild(resetButton)
+    const resPar = document.querySelectorAll(".resultPara p")
     playerInput.disabled = false;
     submit.disabled = false;
-    for (res of resPar) {
+    for (const res of resPar) {
         res.textContent = "";
     }
     playerInput.value = "";
@@ -78,4 +81,3 @@ function resetGame() {
     randomNumber = Math.floor(Math.random() * 50) + 1;
 }
 
-submit.addEventListener("click", checkAnswer)
