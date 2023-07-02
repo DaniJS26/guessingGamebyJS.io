@@ -3,7 +3,9 @@ const submit = document.querySelector(".submit");
 const lResults = document.querySelector(".lastResults");
 const answer = document.querySelector(".answer");
 const condition = document.querySelector(".hlValue");
-let resetButton = document.querySelector("#reset")
+const resPar = document.querySelectorAll(".resultPara p")
+
+let resetButton;
 
 let guessCount = 1;
 
@@ -36,11 +38,11 @@ function conditionCheck(guess, rdn) {
         startOver()
     }
     
-    else if (guessCount === 9) {
+    if (guessCount === 9) {
         alert(`You have one chance to guess the right number.`)
     }
     
-    else if (guessCount === 10) {
+    if (guessCount === 10) {
         answer.textContent = "Game Over !!!";
         condition.textContent = "";
         startOver();
@@ -62,7 +64,9 @@ function conditionCheck(guess, rdn) {
 function startOver() {
     playerInput.disabled = true;
     submit.disabled = true;
+    resetButton = document.createElement("button");
     resetButton.textContent = "Start a new game";
+    document.body.appendChild(resetButton);
     resetButton.classList.add("btn", "btn-primary", "display-4", "mt-2");
     resetButton.addEventListener("click", resetGame)
 }
@@ -70,7 +74,6 @@ function startOver() {
 function resetGame() {
     guessCount = 1;
     resetButton.parentNode.removeChild(resetButton)
-    const resPar = document.querySelectorAll(".resultPara p")
     playerInput.disabled = false;
     submit.disabled = false;
     for (const res of resPar) {
